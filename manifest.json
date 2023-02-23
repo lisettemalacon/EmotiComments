@@ -1,17 +1,11 @@
 {
-    "manifest_version": 3,
-    "name": "EmotiComments",
-    "version": "1.0",
-    "description": "Add emotion labels to YouTube comments.",
-    "content_scripts": [
-        {
-            "js": [
-                "scripts/getComments.js"
-            ],
-            "matches": [
-                "https://www.youtube.com/*"
-            ]
-        }
-    ]
-    
+  "manifest_version": 3,
+  "name": "EmotiComments",
+  "version": "1.0",
+  "description": "Add emotion labels to YouTube comments.",
+  "action": {},
+  "background": {
+    "service_worker": "background-worker.js"
+  },
+  "permissions": ["scripting", "activeTab"]
 }
