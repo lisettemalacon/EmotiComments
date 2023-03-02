@@ -5,7 +5,8 @@
   "description": "Add emotion labels to YouTube comments.",
   "action": {},
   "background": {
-    "service_worker": "background-worker.js"
+    "service_worker": "background.js"
   },
-  "permissions": ["scripting", "activeTab"]
+  "permissions": ["scripting", "activeTab"],
+  "host_permissions": ["<all_urls>"]
 }
