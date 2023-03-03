@@ -50,7 +50,9 @@ Promise.all(emotionsPromises).then(emotions => {
     if (emotions.length !== 0) {
         const commentThreads = document.querySelectorAll("[id='content-text']");
         const largestEmotions = getLargestEmotion(emotions);
-        // const contentDiv = document.querySelectorAll("[id='content']")
+        //const contentDivs = document.querySelectorAll("[id='expander']");
+        const commentRenderers = document.getElementsByTagName("ytd-comment-thread-renderer");
+        //console.log(ytdExpanderElements);
         for (let i = 0; i < commentThreads.length; i++) {
             const emotion = largestEmotions[i];
             let imgURL = "";
@@ -69,11 +71,21 @@ Promise.all(emotionsPromises).then(emotions => {
             }
             const commentThread = commentThreads[i];
             commentThread.style.position = 'relative';
+            commentThread.style.display = 'flex';
             const newDiv = document.createElement("div");
             newDiv.style.backdropFilter = 'blur(5px)';
             newDiv.style.width = '920px';
             newDiv.style.height = '300px';
             newDiv.style.position = 'absolute';
+
+            const commentRender = commentRenderers[i];
+            const commentExpanders = commentRender.querySelectorAll("[id='expander']");
+            const commentExpander = commentExpanders[0];
+            //console.log(commentExpander);
+            const commentElements = commentExpander.getElementsByTagName('div');
+            //console.log(commentElements[0]);
+            const commentElement = commentElements[0];
+            commentElement.style.minHeight = '50px';
 
             const emotionDiv = document.createElement("div");
             const img = document.createElement("img");
