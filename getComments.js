@@ -1,3 +1,9 @@
+let link = document.createElement('link');
+link.setAttribute('rel', 'stylesheet');
+link.setAttribute('type', 'text/css');
+link.setAttribute('href', 'https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Poppins:wght@300&display=swap" rel="stylesheet');
+document.head.appendChild(link);
+
 let commentContents = document.querySelectorAll("[id='content-text']");
 let emotionsPromises = [];
 for (let i = 0; i < commentContents.length; i++) {
@@ -69,14 +75,24 @@ Promise.all(emotionsPromises).then(emotions => {
             } else {
                 imgURL = "https://i.imgur.com/OlAk4Xi.png";
             }
+
+
             const commentThread = commentThreads[i];
             commentThread.style.position = 'relative';
             commentThread.style.display = 'flex';
             const newDiv = document.createElement("div");
             newDiv.style.backdropFilter = 'blur(5px)';
-            newDiv.style.width = '920px';
-            newDiv.style.height = '300px';
+            newDiv.style.width = (window.innerWidth + 50) + "px";
+            newDiv.style.height = window.innerHeight + "px";
             newDiv.style.position = 'absolute';
+
+            // const test = window.innerWidth + "px";
+            // console.log('test', typeof(test));
+            // console.log("w", window.innerWidth + "px");
+            // console.log(typeof(window.innerWidth));
+            // console.log("h", window.innerHeight + "px");
+
+
 
             const commentRender = commentRenderers[i];
             const commentExpanders = commentRender.querySelectorAll("[id='expander']");
@@ -94,35 +110,95 @@ Promise.all(emotionsPromises).then(emotions => {
             newDiv.appendChild(emotionDiv);
 
             newDiv.addEventListener('click', function () {
+                const modalBackground = document.createElement('div');
+                modalBackground.style.display = 'block';
+                modalBackground.style.position = 'fixed';
+                modalBackground.style.zIndex = '1';
+                modalBackground.style.left = '0';
+                modalBackground.style.top = '0';
+                modalBackground.style.width = '100%';
+                modalBackground.style.height = '100%';
+                modalBackground.style.overflow = 'auto';
+                modalBackground.style.padding = '8px';
+                modalBackground.style.backgroundColor = 'rgba(0,0,0,0.5)';
+
+
                 const modal = document.createElement('div');
                 modal.style.backgroundColor = 'white';
-                modal.style.width = '300px';
-                modal.style.height = '300px';
+                modal.style.width = '343px';
+                modal.style.height = '224px';
                 modal.style.position = 'fixed';
                 modal.style.left = '50%';
                 modal.style.top = '50%';
                 modal.style.transform = 'translate(-50%, -50%)';
+                modal.style.borderRadius = '8px'
+
+                modalBackground.appendChild(modal);
 
                 const revealContent = document.createElement('h2');
                 revealContent.style.color = 'black';
-                revealContent.textContent = "Reveal comment " + emotion;
+                revealContent.textContent = "Reveal comment";
+                revealContent.style.fontFamily = 'Lato';
+                revealContent.style.fontWeight = 'medium';
+                revealContent.style.fontSize = '20px';
+                revealContent.style.margin = '27px';
+                revealContent.style.color = '#334253';
                 modal.appendChild(revealContent);
 
-                const yesButton = document.createElement('button');
+                const warningText = document.createElement('p');
+                warningText.style.color = '#67727E';
+                warningText.style.fontFamily = 'Lato';
+                warningText.style.fontSize = '16px';
+                warningText.textContent = 'This comment may contain sensitive information. Are you sure you want to reveal this comment?';
+                warningText.style.margin = '27px';
+
+                modal.appendChild(warningText);
+
+                const buttonDiv = document.createElement('div');
+                buttonDiv.style.flexDirection = 'row';
+                buttonDiv.style.margin = '27px';
+                buttonDiv.style.justifyContent = 'center';
+                buttonDiv.style.alignItems = 'center';
+
+                const yesButton = document.createElement('div');
+                yesButton.style.width = '138px';
+                yesButton.style.height = '48px';
+                yesButton.style.backgroundColor = '#5357B6';
+                yesButton.textContent = "NO, CANCEL";
+                yesButton.style.color = 'white';
+                yesButton.style.fontFamily = 'Lato';
+                yesButton.style.fontSize = '16px';
+                yesButton.style.borderRadius = '8px';
                 yesButton.textContent = "YES, REVEAL";
+                yesButton.style.marginLeft = '10px';
+                yesButton.style.alignText = 'center';
+                
                 yesButton.addEventListener("click", function () {
                     commentThread.removeChild(commentThread.firstChild);
-                    commentThread.removeChild(modal);
+                    commentThread.removeChild(modalBackground);
                 })
-                const noButton = document.createElement('button');
+
+                const noButton = document.createElement('div');
+                noButton.style.width = '138px';
+                noButton.style.height = '48px';
+                noButton.style.backgroundColor = '#67727e';
                 noButton.textContent = "NO, CANCEL";
+                noButton.style.color = 'white';
+                noButton.style.fontFamily = 'Lato';
+                noButton.style.fontSize = '16px';
+                noButton.style.borderRadius = '8px';
+                noButton.style.alignText = 'center';
                 noButton.addEventListener("click", function () {
-                    commentThread.removeChild(modal);
+                    commentThread.removeChild(modalBackground);
                 })
-                modal.appendChild(noButton);
-                modal.appendChild(yesButton);
+                yesButton.style.display = 'inline-block';
+                noButton.style.display = 'inline-block';
+
+                buttonDiv.appendChild(noButton);
+                buttonDiv.appendChild(yesButton);
+                modal.appendChild(buttonDiv);
                 // fullDiv.insertBefore(modal, fullDiv.firstChild);
-                commentThread.appendChild(modal);
+                commentThread.appendChild(modalBackground);
 
             })
             commentThread.insertBefore(newDiv, commentThread.firstChild);
