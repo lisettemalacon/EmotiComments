@@ -164,14 +164,21 @@ Promise.all(emotionsPromises).then(emotions => {
                 yesButton.style.width = '138px';
                 yesButton.style.height = '48px';
                 yesButton.style.backgroundColor = '#5357B6';
-                yesButton.textContent = "NO, CANCEL";
-                yesButton.style.color = 'white';
-                yesButton.style.fontFamily = 'Lato';
-                yesButton.style.fontSize = '16px';
                 yesButton.style.borderRadius = '8px';
-                yesButton.textContent = "YES, REVEAL";
                 yesButton.style.marginLeft = '10px';
-                yesButton.style.alignText = 'center';
+                yesButton.style.cursor = 'pointer';
+
+                const yesText = document.createElement('p');
+                yesText.textContent = "YES, REVEAL";
+                yesText.style.color = 'white';
+                yesText.style.fontFamily = 'Lato';
+                yesText.style.fontSize = '16px';
+                yesText.style.padding = '18px';
+                yesText.style.userSelect = 'none';
+                //yesText.style.marginBottom = '-35px';
+                yesText.style.position = 'fixed';
+                yesText.style.bottom = '10px';
+                yesButton.appendChild(yesText);
                 
                 yesButton.addEventListener("click", function () {
                     commentThread.removeChild(commentThread.firstChild);
@@ -182,12 +189,24 @@ Promise.all(emotionsPromises).then(emotions => {
                 noButton.style.width = '138px';
                 noButton.style.height = '48px';
                 noButton.style.backgroundColor = '#67727e';
-                noButton.textContent = "NO, CANCEL";
-                noButton.style.color = 'white';
-                noButton.style.fontFamily = 'Lato';
-                noButton.style.fontSize = '16px';
                 noButton.style.borderRadius = '8px';
-                noButton.style.alignText = 'center';
+                noButton.style.cursor = 'pointer';
+                //noButton.style.position = 'absolute';
+
+                const noText = document.createElement('p');
+                noText.textContent = "NO, CANCEL";
+                noText.style.color = 'white';
+                noText.style.fontFamily = 'Lato';
+                noText.style.fontSize = '16px';
+                noText.style.position = 'fixed';
+                noText.style.bottom = '10px';
+                noText.style.padding = '18px';
+                noText.style.userSelect = 'none';
+                //noText.style.position = 'relative';
+
+        
+                noButton.appendChild(noText);
+
                 noButton.addEventListener("click", function () {
                     commentThread.removeChild(modalBackground);
                 })
