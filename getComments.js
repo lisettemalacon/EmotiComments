@@ -62,18 +62,31 @@ Promise.all(emotionsPromises).then(emotions => {
         for (let i = 0; i < commentThreads.length; i++) {
             const emotion = largestEmotions[i];
             let imgURL = "";
+            let emotionColor = "";
             if (emotion === "Happy") {
                 imgURL = "https://i.imgur.com/piizLAK.png";
+                //emotionColor = '#ef96d8';
+                emotionColor = 'rgba(239, 150, 216, 0.4)';
             } else if (emotion === "Sad") {
                 imgURL = "https://i.imgur.com/C2yq6m1.png";
+                emotionColor = 'rgba(154, 202, 255, 0.4)';
+                //emotionColor = '#9acaff';
             } else if (emotion === "Fear") {
                 imgURL = "https://i.imgur.com/kOopfvY.png";
+                emotionColor = 'rgba(157, 182, 50, 0.4)';
+                //emotionColor = '#9db632';
             } else if (emotion === "Bored") {
                 imgURL = "https://i.imgur.com/cZlg9yQ.png";
+                emotionColor = 'rgba(230, 135, 37, 0.4)';
+                //emotionColor = '#e68725';
             } else if (emotion === "Angry") {
                 imgURL = "https://i.imgur.com/qM1bNp3.png";
+                emotionColor = 'rgba(255, 82, 78, 0.4)';
+                //emotionColor = '#ff524e';
             } else {
                 imgURL = "https://i.imgur.com/OlAk4Xi.png";
+                emotionColor = 'rgba(255, 240, 0, 0.4)';
+                //emotionColor = '#fff000';
             }
 
 
@@ -85,6 +98,7 @@ Promise.all(emotionsPromises).then(emotions => {
             newDiv.style.width = (window.innerWidth + 50) + "px";
             newDiv.style.height = window.innerHeight + "px";
             newDiv.style.position = 'absolute';
+            newDiv.style.backgroundColor = emotionColor;
 
             // const test = window.innerWidth + "px";
             // console.log('test', typeof(test));
